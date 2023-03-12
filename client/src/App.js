@@ -34,7 +34,6 @@ function App() {
   const [spamData, setSpamData] = useState(null);
 
   let initialState = {
-    paragraph: "Enter your text here",
     options: [],
   };
   const [analysisForm, setAnalysisForm] = useState(initialState);
@@ -130,6 +129,7 @@ function App() {
       <header className="App-header">
         <form onSubmit={getData}>
           <textarea
+            placeholder="Enter your text here"
             type="text"
             name="paragraph"
             value={analysisForm.paragraph}
@@ -138,6 +138,7 @@ function App() {
             rows="10"
           />
           <br />
+          <div className="checkbox-container">
           <ul className="option-list">
             {scanOption.map((name, index) => {
               return (
@@ -157,8 +158,9 @@ function App() {
               );
             })}
           </ul>
+          </div>
           <br />
-          <input type="submit" value="Submit" />
+          <input type="submit" id="submit-button" value="Submit" />
         </form>
 
         {/* new line start*/}
