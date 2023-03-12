@@ -1,8 +1,6 @@
-import os
 import cohere
 from cohere.classify import Example
 
-print(os.getenv('COHERE_API_KEY'))
 co = cohere.Client('RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2')
 
 inputs=[
