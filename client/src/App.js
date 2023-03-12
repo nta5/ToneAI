@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import ToneAI from "./ToneAI.png";
 import "./App.css";
 import { Grid } from "@mui/material";
 import PieChart from "./PieChart";
@@ -128,6 +129,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <img src={ToneAI} alt="ToneAI" />
+        <h1 id="navbar">ToneAI</h1>
         <Grid container spacing={3}>
           <Grid item xs={6} p={2} id="form-data">
             <form onSubmit={getData}>
