@@ -1,7 +1,10 @@
+import os
+from dotenv import load_dotenv
 import cohere
 from cohere.classify import Example
 
-co = cohere.Client('RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2')
+load_dotenv()
+co = cohere.Client(os.getenv('COHERE_API_KEY','RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2'))
 
 inputs=[
   "This item was broken when it arrived",
