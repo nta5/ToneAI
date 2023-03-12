@@ -21,8 +21,8 @@ function App() {
     e.preventDefault();
     axios({
       method: "post",
-      url: "http://127.0.0.1:8000/spam",
-      // url: "https://fraudapi.onrender.com/spam",
+      // url: "http://127.0.0.1:8000/spam",
+      url: "https://fraudapi.onrender.com/spam",
       data: JSON.stringify(analysisForm),
       headers: { "Content-Type": "application/json" },
     })
