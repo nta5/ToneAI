@@ -4,21 +4,32 @@ co = cohere.Client('RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2')
 from cohere.classify import Example
 
 examples=[
-  Example("Click this link to get free money!", "spam"),
-  Example("You're eligible for a free prize!", "spam"),
-  Example("Sign up for our newsletter and get discounts!", "spam"),
-  Example("Buy now and get 50% \off!", "spam"),
-  Example("Visit our website for the best deals!", "spam"),
-  Example("Congratulations, you won the lottery!", "spam"),
-  Example("Come join us for a free webinar!", "spam"),
-  Example("Follow us on social media to stay up to date!", "spam"),
-  Example("This offer is too good to be true!", "spam"),
-  Example("The new product launch is this week!", "non-spam"),
-  Example("Hey, check out this new article!", "non-spam"), 
-  Example("We are having a sale this weekend!", "non-spam"),
-  Example("Join us for a free virtual event!", "non-spam"),
-  Example("Have you seen our new product line?", "non-spam"),
-  Example("Follow us on social media for updates!", "non-spam"),
+Example("You're an idiot", "negative"),
+  Example("I hate you", "negative"),
+  Example("You are stupid", "negative"),
+  Example("I will never forgive you", "negative"),
+  Example("What a loser", "negative"),
+  Example("You're an idiot", "negative"),
+  Example("I hate you", "negative"),
+  Example("You are stupid", "negative"),
+  Example("I will never forgive you", "negative"),
+  Example("What a loser", "negative"),
+  Example("I am feeling great today!", "positive"), 
+  Example("I just got a promotion!", "positive"), 
+  Example("I love spending time with my family", "positive"), 
+  Example("I am so excited for tomorrow", "positive"), 
+  Example("I am feeling content", "positive"), 
+  Example("I had a wonderful time at the park", "positive"), 
+  Example("I am looking forward to my vacation", "positive"), 
+  Example("This meal was delicious", "positive"), 
+  Example("I am so proud of my accomplishments", "positive"),
+  Example("The weather is mild", "neutral"),
+  Example("I ran for an hour", "neutral"),
+  Example("The movie was average", "neutral"),
+  Example("The store was closed", "neutral"),
+  Example("I took the bus home", "neutral"),
+  Example("The food was okay", "neutral"),
+  Example("It was an average day", "neutral"),
 ]
 
 
@@ -31,5 +42,12 @@ def classify_sentiment(text):
     print(response.classifications)
     return response.classifications
 
-classify_sentiment("Win a free prize!")
-# sample output The confidence levels of the labels are: [{'spam': 0.9999999999999999, 'non-spam': 1.1102230246251565e-16}]
+classify_sentiment("You are a complete failure.")
+# sample output The confidence levels of the labels are: [{'negative': 0.9999999999999999, 'positive': 1.1102230246251565e-16, 'neutral': 1.1102230246251565e-16}]
+def get_percentage(response):
+    negative_score = list(response[0].keys())[0]
+    positive_score = list(response[0].keys())[1]
+    neutral_score = list(response[0].keys())[2]
+    return negative_score, positive_score, neutral_score
+
+get_percentage(classify_sentiment("You are a complete failure."))
