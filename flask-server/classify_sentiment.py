@@ -43,3 +43,12 @@ def classify_sentiment(text):
     return response.classifications
 
 classify_sentiment("You are a complete failure.")
+# sample output The confidence levels of the labels are: [{'negative': 0.9999999999999999, 'positive': 1.1102230246251565e-16, 'neutral': 1.1102230246251565e-16}]
+
+def get_percentage(response):
+    negative_score = list(response[0].keys())[0]
+    positive_score = list(response[0].keys())[1]
+    neutral_score = list(response[0].keys())[2]
+    return negative_score, positive_score, neutral_score
+
+get_percentage(classify_sentiment("You are a complete failure."))
