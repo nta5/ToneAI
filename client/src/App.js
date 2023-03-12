@@ -5,11 +5,15 @@ import "./App.css";
 
 function App() {
   // new line start
+  const scanOption = ["Sentiment", "Spam"];
+  const [checkedState, setCheckedState] = useState(
+    new Array(scanOption.length).fill(false)
+  );
   const [result, setResultData] = useState(null);
 
   let initialState = {
     paragraph: "Enter your text here",
-    options: ["spam", "ham"],
+    options: [],
   };
   const [analysisForm, setAnalysisForm] = useState(initialState);
 
@@ -17,8 +21,8 @@ function App() {
     e.preventDefault();
     axios({
       method: "post",
-      // url: "http://127.0.0.1:8000/spam",
-      url: "https://fraudapi.onrender.com/spam",
+      url: "http://127.0.0.1:8000/spam",
+      // url: "https://fraudapi.onrender.com/spam",
       data: JSON.stringify(analysisForm),
       headers: { "Content-Type": "application/json" },
     })
@@ -47,10 +51,30 @@ function App() {
     });
   };
 
+  const handleOnChange = (position) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    setCheckedState(updatedCheckedState);
+
+    setAnalysisForm((prev) => {
+      let choices = [];
+
+      for (let i = 0; i < checkedState.length; i++) {
+        if (updatedCheckedState[i]) {
+          choices.push(scanOption[i].toLowerCase());
+        }
+      }
+
+      return { ...prev, options: choices };
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={logo} className="App-logo" alt="logo" height="5vh" />
         <form onSubmit={getData}>
           <textarea
             type="text"
@@ -58,8 +82,28 @@ function App() {
             value={analysisForm.paragraph}
             onChange={(e) => onChangeHandler(e.target)}
             cols="60"
-            rows="5"
+            rows="10"
           />
+          <br />
+          <ul className="option-list">
+            {scanOption.map((name, index) => {
+              return (
+                <li key={index}>
+                  <div className="list-item">
+                    <input
+                      type="checkbox"
+                      id={`custom-checkbox-${index}`}
+                      name={name}
+                      value={name}
+                      checked={checkedState[index]}
+                      onChange={() => handleOnChange(index)}
+                    />
+                    <label htmlFor={`custom-checkbox-${index}`}>{name}</label>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
           <br />
           <input type="submit" value="Submit" />
         </form>

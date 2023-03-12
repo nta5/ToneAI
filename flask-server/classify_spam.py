@@ -28,9 +28,9 @@ def classify_spam(text):
         inputs=[text],
         examples=examples,
     )
-    print(response.classifications)
+    print(response.classifications[0])
     return response.classifications
 
 
-classify_spam("Win a free prize!")
+# classify_spam("Win a free prize!")
 # sample output The confidence levels of the labels are: [{'spam': 0.9999999999999999, 'non-spam': 1.1102230246251565e-16}]

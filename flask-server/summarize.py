@@ -41,5 +41,5 @@ def summarize(text):
     print(summary)
     return summary
 
-summarize(prompt)
+# summarize(prompt)
 
