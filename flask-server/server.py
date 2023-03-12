@@ -16,7 +16,7 @@ def index():
 def spam():
 	text = request.json["paragraph"]
 	options = request.json["options"]
-	processed_text = text.upper()
+	processed_text = text
 
 	responseData = {"summary": summarize(processed_text)}
 	for option in options:
