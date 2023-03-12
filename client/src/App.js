@@ -5,12 +5,13 @@ import "./App.css";
 
 function App() {
   // new line start
-  const [profileData, setProfileData] = useState(null);
+  const [result, setResultData] = useState(null);
 
   let initialState = {
-    name: "Enter your text here",
+    paragraph: "Enter your text here",
+    options: ["spam", "ham"],
   };
-  const [person, setPerson] = useState(initialState);
+  const [analysisForm, setAnalysisForm] = useState(initialState);
 
   function getData(e) {
     e.preventDefault();
@@ -18,15 +19,15 @@ function App() {
       method: "post",
       // url: "http://127.0.0.1:8000/spam",
       url: "https://fraudapi.onrender.com/spam",
-      data: JSON.stringify(person),
+      data: JSON.stringify(analysisForm),
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
         const res = response.data;
         console.log(res);
-        setProfileData({
-          profile_name: res.message,
-          about_me: res.message,
+        setResultData({
+          paragraph: res.paragraph,
+          options: res.options,
         });
       })
       .catch((error) => {
@@ -41,7 +42,7 @@ function App() {
 
   const onChangeHandler = (event) => {
     const { name, value } = event;
-    setPerson((prev) => {
+    setAnalysisForm((prev) => {
       return { ...prev, [name]: value };
     });
   };
@@ -51,24 +52,24 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <form onSubmit={getData}>
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={person.name}
-              onChange={(e) => onChangeHandler(e.target)}
-            />
-          </label>
+          <textarea
+            type="text"
+            name="paragraph"
+            value={analysisForm.paragraph}
+            onChange={(e) => onChangeHandler(e.target)}
+            cols="60"
+            rows="5"
+          />
+          <br />
           <input type="submit" value="Submit" />
         </form>
 
         {/* new line start*/}
-        <p>To get your analysis details: </p>
-        {profileData && (
+        <p>Your analysis details: </p>
+        {result && (
           <div>
-            <p>Profile name: {profileData.profile_name}</p>
-            <p>About me: {profileData.about_me}</p>
+            <p>Received text: {result.paragraph}</p>
+            <p>Options chosen: {result.options}</p>
           </div>
         )}
         {/* end of new line */}
