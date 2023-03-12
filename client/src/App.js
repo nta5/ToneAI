@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import ToneAI from "./ToneAI.png";
 import "./App.css";
 
 function App() {
@@ -75,7 +76,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <img src="ToneAI.png" alt="ToneAI" />
+      <img src={ToneAI} alt="ToneAI" />
         <h1 id="navbar">ToneAI</h1>
         <form onSubmit={getData}>
           <textarea
