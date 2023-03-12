@@ -18,7 +18,7 @@ def spam():
 	options = request.json["options"]
 	processed_text = text.upper()
 
-	responseData = {"summary": summarize(processed_text)}
+	responseData = {}
 	for option in options:
 		if option == "spam":
 			spam = get_spam_result(processed_text)
@@ -26,6 +26,9 @@ def spam():
 		elif option == "sentiment":
 			sentiment = get_sentiment_result(processed_text)
 			responseData["sentiment"] = sentiment
+		elif option == "summary":
+			summary = summarize(processed_text)
+			responseData["summary"] = summary
 
 	response = jsonify(responseData)
 

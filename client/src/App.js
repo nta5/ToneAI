@@ -1,11 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
   // new line start
-  const scanOption = ["Sentiment", "Spam"];
+  const scanOption = ["Sentiment", "Spam", "Summary"];
   const [checkedState, setCheckedState] = useState(
     new Array(scanOption.length).fill(false)
   );
@@ -30,7 +29,7 @@ function App() {
         const res = response.data;
         console.log(res);
         setResultData({
-          paragraph: res.summary,
+          paragraph: res.summary ? res.summary : null,
           options: [
             res.sentiment ? res.sentiment : null,
             res.spam ? res.spam : null,
@@ -114,8 +113,11 @@ function App() {
         {result && (
           <div>
             <p>Your analysis details: </p>
-            <p>Summary: {result.paragraph}</p>
-            <p>Result: {result.options}</p>
+            {result.paragraph && <p>Summary: {result.paragraph}</p>}
+            {result.options.spam != null &&
+              result.options.sentiment != null && (
+                <p>Result: {result.options}</p>
+              )}
           </div>
         )}
         {/* end of new line */}
