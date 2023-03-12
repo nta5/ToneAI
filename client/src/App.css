@@ -54,16 +54,11 @@
   background-color: black;
 }
 
-.Grid {
-  background-color: black;
-}
-
 .chart {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: black;
 }
 
 .form {
@@ -72,11 +67,6 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: black;
-}
-
-#form-data {
-  max-height: 100%;
 }
 
 #result {
