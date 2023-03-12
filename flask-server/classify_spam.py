@@ -1,7 +1,10 @@
 import cohere
-co = cohere.Client('RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2')
-
 from cohere.classify import Example
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+co = cohere.Client(os.getenv('COHERE_API_KEY','RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2'))
 
 examples=[
   Example("Click this link to get free money!", "spam"),
@@ -28,9 +31,22 @@ def classify_spam(text):
         inputs=[text],
         examples=examples,
     )
-    print(response.classifications[0])
-    return response.classifications
+    # print(response.classifications[0])
+    return response.classifications[0]
 
 
 # classify_spam("Win a free prize!")
 # sample output The confidence levels of the labels are: [{'spam': 0.9999999999999999, 'non-spam': 1.1102230246251565e-16}]
+
+def get_spam_percentage(text):
+  response = classify_spam(text)
+  spam_score = response.labels['spam'].confidence
+  non_spam_score = response.labels['non-spam'].confidence
+  return spam_score, non_spam_score
+
+def get_spam_result(text):
+  spam_score, non_spam_score = get_spam_percentage(text)
+  if (spam_score > 0.5):
+    return "spam"
+  else:
+    return "not spam"

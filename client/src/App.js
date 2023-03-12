@@ -30,8 +30,11 @@ function App() {
         const res = response.data;
         console.log(res);
         setResultData({
-          paragraph: res.paragraph,
-          options: res.options,
+          paragraph: res.summary,
+          options: [
+            res.sentiment ? res.sentiment : null,
+            res.spam ? res.spam : null,
+          ],
         });
       })
       .catch((error) => {
@@ -109,11 +112,11 @@ function App() {
         </form>
 
         {/* new line start*/}
-        <p>Your analysis details: </p>
         {result && (
           <div>
-            <p>Received text: {result.paragraph}</p>
-            <p>Options chosen: {result.options}</p>
+            <p>Your analysis details: </p>
+            <p>Summary: {result.paragraph}</p>
+            <p>Result: {result.options}</p>
           </div>
         )}
         {/* end of new line */}

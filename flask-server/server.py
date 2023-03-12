@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, request, render_template, jsonify
 from flask_cors import CORS
-from classify_sentiment import classify_sentiment
-from classify_spam import classify_spam
+from classify_sentiment import get_sentiment_result
+from classify_spam import get_spam_result
 from summarize import summarize
 
 app = Flask(__name__)
@@ -19,16 +19,14 @@ def spam():
 	options = request.json["options"]
 	processed_text = text.upper()
 
-	responseData = {"paragraph":processed_text}
+	responseData = {"summary": summarize(processed_text)}
 	for option in options:
 		if option == "spam":
-			spam = classify_spam(processed_text)
-			responseData["spam"] = "spam received"
+			spam = get_spam_result(processed_text)
+			responseData["spam"] = spam
 		elif option == "sentiment":
-			sentiment = classify_sentiment(processed_text)
-			responseData["sentiment"] = "sentiment received"
-
-	summary=summarize(processed_text)
+			sentiment = get_sentiment_result(processed_text)
+			responseData["sentiment"] = sentiment
 
 	response = jsonify(responseData)
 

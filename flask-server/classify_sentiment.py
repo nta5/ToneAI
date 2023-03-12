@@ -1,7 +1,11 @@
 import cohere
-co = cohere.Client('RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2')
+from cohere.classify import Example, Classification
+from cohere.response import CohereObject
+import os
+from dotenv import load_dotenv
 
-from cohere.classify import Example
+load_dotenv()
+co = cohere.Client(os.getenv('COHERE_API_KEY','RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2'))
 
 examples=[
 Example("You're an idiot", "negative"),
@@ -32,22 +36,23 @@ Example("You're an idiot", "negative"),
   Example("It was an average day", "neutral"),
 ]
 
-
 def classify_sentiment(text):
     response = co.classify(
         model='large',
         inputs=[text],
         examples=examples,
     )
-    print(response.classifications[0])
-    return response.classifications
+    # print(response.classifications[0])
+    return response.classifications[0]
 
-# classify_sentiment("You are a complete failure.")
 # sample output The confidence levels of the labels are: [{'negative': 0.9999999999999999, 'positive': 1.1102230246251565e-16, 'neutral': 1.1102230246251565e-16}]
-def get_percentage(response):
-    negative_score = list(response[0].keys())[0]
-    positive_score = list(response[0].keys())[1]
-    neutral_score = list(response[0].keys())[2]
+def get_sentiment_percentage(text):
+    response = classify_sentiment(text)
+    negative_score = response.labels['negative'].confidence
+    positive_score = response.labels['positive'].confidence
+    neutral_score = response.labels['neutral'].confidence
     return negative_score, positive_score, neutral_score
 
-# get_percentage(classify_sentiment("You are a complete failure."))
+def get_sentiment_result(text):
+    response = classify_sentiment(text)
+    return response.prediction
