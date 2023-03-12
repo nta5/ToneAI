@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, request, render_template, jsonify
 from flask_cors import CORS
-from classify_sentiment import get_sentiment_result
-from classify_spam import get_spam_result
+from classify_sentiment import get_sentiment_result, get_sentiment_percentage
+from classify_spam import get_spam_result, get_spam_percentage
 from summarize import summarize
 
 app = Flask(__name__)
@@ -22,10 +22,14 @@ def spam():
 	for option in options:
 		if option == "spam":
 			spam = get_spam_result(processed_text)
+			spam_value = get_spam_percentage(processed_text)
 			responseData["spam"] = spam
+			responseData["spamValue"] = spam_value
 		elif option == "sentiment":
 			sentiment = get_sentiment_result(processed_text)
+			sentiment_value = get_sentiment_percentage(processed_text)
 			responseData["sentiment"] = sentiment
+			responseData["sentimentValue"] = sentiment_value
 		elif option == "summary":
 			summary = summarize(processed_text)
 			responseData["summary"] = summary

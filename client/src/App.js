@@ -1,6 +1,26 @@
 import { useState } from "react";
 import axios from "axios";
 import "./App.css";
+import PieChart from "./PieChart";
+import {
+  Chart,
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+Chart.register(
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 function App() {
   // new line start
@@ -9,6 +29,9 @@ function App() {
     new Array(scanOption.length).fill(false)
   );
   const [result, setResultData] = useState(null);
+
+  const [sentimentData, setSentimentData] = useState(null);
+  const [spamData, setSpamData] = useState(null);
 
   let initialState = {
     paragraph: "Enter your text here",
@@ -34,7 +57,36 @@ function App() {
             res.sentiment ? res.sentiment : null,
             res.spam ? res.spam : null,
           ],
+          sentimentValue: res.sentimentValue,
         });
+        if (res.sentimentValue)
+          setSentimentData({
+            labels: ["Negative", "Positive", "Neutral"],
+            datasets: [
+              {
+                label: "Sentiment analysis",
+                data: res.sentimentValue,
+                backgroundColor: ["#ecf0f1", "#50AF95", "#f3ba2f"],
+                borderColor: "black",
+                borderWidth: 2,
+              },
+            ],
+          });
+        else setSentimentData(null);
+        if (res.spamValue)
+          setSpamData({
+            labels: ["Spam", "Not spam"],
+            datasets: [
+              {
+                label: "Spam analysis",
+                data: res.spamValue,
+                backgroundColor: ["#ecf0f1", "#50AF95", "#f3ba2f"],
+                borderColor: "black",
+                borderWidth: 2,
+              },
+            ],
+          });
+        else setSpamData(null);
       })
       .catch((error) => {
         if (error.response) {
@@ -114,10 +166,22 @@ function App() {
           <div>
             <p>Your analysis details: </p>
             {result.paragraph && <p>Summary: {result.paragraph}</p>}
-            {result.options.spam != null &&
-              result.options.sentiment != null && (
-                <p>Result: {result.options}</p>
-              )}
+            {(result.options.spam != null ||
+              result.options.sentiment != null) && (
+              <p>Result: {result.options}</p>
+            )}
+            {sentimentData && (
+              <div id="sentiment_chart">
+                <p>Sentiment analysis</p>
+                <PieChart chartData={sentimentData} />
+              </div>
+            )}
+            {spamData && (
+              <div id="spam_chart">
+                <p>Spam analysis</p>
+                <PieChart chartData={spamData} />
+              </div>
+            )}
           </div>
         )}
         {/* end of new line */}

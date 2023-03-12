@@ -51,8 +51,7 @@ def get_sentiment_percentage(text):
     negative_score = response.labels['negative'].confidence
     positive_score = response.labels['positive'].confidence
     neutral_score = response.labels['neutral'].confidence
-    return negative_score, positive_score, neutral_score
-
+    return [negative_score, positive_score, neutral_score]
 def get_sentiment_result(text):
     response = classify_sentiment(text)
     return response.prediction

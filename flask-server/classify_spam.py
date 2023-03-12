@@ -42,10 +42,10 @@ def get_spam_percentage(text):
   response = classify_spam(text)
   spam_score = response.labels['spam'].confidence
   non_spam_score = response.labels['non-spam'].confidence
-  return spam_score, non_spam_score
+  return [spam_score, non_spam_score]
 
 def get_spam_result(text):
-  spam_score, non_spam_score = get_spam_percentage(text)
+  spam_score = get_spam_percentage(text)[0]
   if (spam_score > 0.5):
     return " spam"
   else:
