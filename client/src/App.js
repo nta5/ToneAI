@@ -75,6 +75,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+      <img src="ToneAI.png" alt="ToneAI" />
         <h1 id="navbar">ToneAI</h1>
         <form onSubmit={getData}>
           <textarea
