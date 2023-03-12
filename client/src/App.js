@@ -129,48 +129,47 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={ToneAI} alt="ToneAI" />
+        <img src={ToneAI} id="navbar" alt="ToneAI" />
         <h1 id="navbar">ToneAI</h1>
         <Grid container spacing={3}>
-          <Grid item xs={6} p={2} id="form-data">
-            <form onSubmit={getData}>
-              <textarea
-                placeholder="Enter your text here"
-                type="text"
-                name="paragraph"
-                value={analysisForm.paragraph}
-                onChange={(e) => onChangeHandler(e.target)}
-                cols="50"
-                rows="20"
-              />
-              <br />
-              <div className="checkbox-container">
-                <ul className="option-list">
-                  {scanOption.map((name, index) => {
-                    return (
-                      <li key={index}>
-                        <div className="list-item">
-                          <input
-                            type="checkbox"
-                            id={`custom-checkbox-${index}`}
-                            name={name}
-                            value={name}
-                            checked={checkedState[index]}
-                            onChange={() => handleOnChange(index)}
-                          />
-                          <label htmlFor={`custom-checkbox-${index}`}>
-                            {name}
-                          </label>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <br />
-              <input type="submit" id="submit-button" value="Submit" />
-            </form>
-          </Grid>
+          <Grid item xs={6} p={2} id="form-data"></Grid>
+          <form onSubmit={getData}>
+            <textarea
+              placeholder="Enter your text here"
+              type="text"
+              name="paragraph"
+              value={analysisForm.paragraph}
+              onChange={(e) => onChangeHandler(e.target)}
+              cols="50"
+              rows="20"
+            />
+            <br />
+            <div className="checkbox-container">
+              <ul className="option-list">
+                {scanOption.map((name, index) => {
+                  return (
+                    <li key={index}>
+                      <div className="list-item">
+                        <input
+                          type="checkbox"
+                          id={`custom-checkbox-${index}`}
+                          name={name}
+                          value={name}
+                          checked={checkedState[index]}
+                          onChange={() => handleOnChange(index)}
+                        />
+                        <label htmlFor={`custom-checkbox-${index}`}>
+                          {name}
+                        </label>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <br />
+            <input type="submit" id="submit-button" value="Submit" />
+          </form>
 
           <Grid item xs={6} p={2}>
             {/* new line start*/}
