@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  height: fit-content;
   background-color: black;
 }
 
@@ -52,9 +51,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  background-color: black;
 }
 
-Grid {
+.Grid {
   background-color: black;
 }
 
@@ -63,6 +63,7 @@ Grid {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: black;
 }
 
 .form {
@@ -71,6 +72,7 @@ Grid {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: black;
 }
 
 #form-data {
