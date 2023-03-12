@@ -47,6 +47,6 @@ def get_spam_percentage(text):
 def get_spam_result(text):
   spam_score, non_spam_score = get_spam_percentage(text)
   if (spam_score > 0.5):
-    return "spam"
+    return " spam"
   else:
-    return "not spam"
+    return " not spam"
