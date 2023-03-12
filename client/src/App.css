@@ -20,7 +20,8 @@
 }
 
 #navbar {
-  width: 30%;
+  width: 15%;
+  padding-bottom: 10px;
 }
 
 #submit-button {
