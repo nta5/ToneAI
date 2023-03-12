@@ -108,7 +108,7 @@ function App() {
           </ul>
           </div>
           <br />
-          <input type="submit" value="Submit" />
+          <input type="submit" id="submit-button" value="Submit" />
         </form>
 
         {/* new line start*/}
