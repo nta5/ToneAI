@@ -49,3 +49,21 @@
   color: #61dafb;
 }
 
+.chart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#form-data {
+  max-height: 100vh;
+}
