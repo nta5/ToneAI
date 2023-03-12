@@ -1,5 +1,8 @@
+import os
 import cohere
 from cohere.classify import Example
+
+print(os.getenv('COHERE_API_KEY'))
 co = cohere.Client('RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2')
 
 inputs=[
@@ -26,7 +29,7 @@ examples=[
   Example("The product arrived yesterday", "neutral"),
 ]
 
-res = co.summarize(
+res = co.classify(
   model='large',
   inputs=inputs,
   examples=examples,
