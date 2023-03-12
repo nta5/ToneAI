@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -7,14 +7,17 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 # API routes and endpoints to get data
 @app.route('/')
 def index():
-	return render_template('index.html')
+	return {'message': 'Hello, World!'}
 
 @app.route("/spam", methods=["POST"])
 def spam():
-	text = request.form['input_text']
+	print(request.json)
+	text = request.json["name"]
 	processed_text = text.upper()
 
-	return processed_text()
+	response = jsonify(name=processed_text)
+
+	return response
 
 if __name__ == '__main__':
 	app.run(debug=True)

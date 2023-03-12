@@ -7,17 +7,26 @@ function App() {
   // new line start
   const [profileData, setProfileData] = useState(null);
 
-  function getData() {
+  let initialState = {
+    name: "Enter your text here",
+  };
+  const [person, setPerson] = useState(initialState);
+
+  function getData(e) {
+    e.preventDefault();
     axios({
-      method: "GET",
-      url: "https://fraudapi.onrender.com/",
+      method: "post",
+      // url: "http://127.0.0.1:8000/spam",
+      url: "https://fraudapi.onrender.com/spam",
+      data: JSON.stringify(person),
+      headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
         const res = response.data;
         console.log(res);
         setProfileData({
-          profile_name: res.name,
-          about_me: res.about,
+          profile_name: res.message,
+          about_me: res.message,
         });
       })
       .catch((error) => {
@@ -30,21 +39,32 @@ function App() {
   }
   //end of new line
 
+  const onChangeHandler = (event) => {
+    const { name, value } = event;
+    setPerson((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <form>
+        <form onSubmit={getData}>
           <label>
             Name:
-            <input type="text" name="name" />
+            <input
+              type="text"
+              name="name"
+              value={person.name}
+              onChange={(e) => onChangeHandler(e.target)}
+            />
           </label>
           <input type="submit" value="Submit" />
         </form>
 
         {/* new line start*/}
-        <p>To get your profile details: </p>
-        <button onClick={getData}>Click me</button>
+        <p>To get your analysis details: </p>
         {profileData && (
           <div>
             <p>Profile name: {profileData.profile_name}</p>
