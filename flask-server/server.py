@@ -14,7 +14,6 @@ def index():
 
 @app.route("/spam", methods=["POST"])
 def spam():
-	print(request.json)
 	text = request.json["paragraph"]
 	options = request.json["options"]
 	processed_text = text.upper()

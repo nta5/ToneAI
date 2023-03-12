@@ -22,7 +22,7 @@ function App() {
     axios({
       method: "post",
       // url: "http://127.0.0.1:8000/spam",
-      url: "https://fraudapi.onrender.com/spam",
+      url: "https://toneapi.onrender.com/spam",
       data: JSON.stringify(analysisForm),
       headers: { "Content-Type": "application/json" },
     })
@@ -77,7 +77,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" height="5vh" />
         <form onSubmit={getData}>
           <textarea
             type="text"
