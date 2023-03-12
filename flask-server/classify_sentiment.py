@@ -4,11 +4,16 @@ co = cohere.Client('RMppgVMUjgiKZRWSIwjmmfbOwRa9YEhi1B15oxQ2')
 from cohere.classify import Example
 
 examples=[
-  Example("You're an idiot", "toxic"),
-  Example("I hate you", "toxic"),
-  Example("You are stupid", "toxic"),
-  Example("I will never forgive you", "toxic"),
-  Example("What a loser", "toxic"),
+  Example("You're an idiot", "negative"),
+  Example("I hate you", "negative"),
+  Example("You are stupid", "negative"),
+  Example("I will never forgive you", "negative"),
+  Example("What a loser", "negative"),
+  Example("You're an idiot", "negative"),
+  Example("I hate you", "negative"),
+  Example("You are stupid", "negative"),
+  Example("I will never forgive you", "negative"),
+  Example("What a loser", "negative"),
   Example("I am feeling great today!", "positive"), 
   Example("I just got a promotion!", "positive"), 
   Example("I love spending time with my family", "positive"), 
@@ -28,16 +33,13 @@ examples=[
 ]
 
 
-inputs=[
-"You are amazing!",
-# "You are a complete failure.",
-# "It's a beautiful day outside.",
-]
+def classify_sentiment(text):
+    response = co.classify(
+        model='large',
+        inputs=[text],
+        examples=examples,
+    )
+    print(response.classifications)
+    return response.classifications
 
-response = co.classify(
-  model='large',
-  inputs=inputs,
-  examples=examples,
-)
-
-print(response.classifications)
+classify_sentiment("You are a complete failure.")
