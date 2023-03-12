@@ -20,7 +20,15 @@
 }
 
 #navbar {
-  width: 30%;
+  width: 100vw;
+  height: 10vh;
+  height: fit-content;
+  text-align: center;
+}
+
+#navbar-image {
+  width: 10%;
+  padding: 2%;
 }
 
 #submit-button {
@@ -61,5 +69,10 @@
 }
 
 #form-data {
-  max-height: 100vh;
+  max-height: 100%;
+}
+
+#result {
+  height: 90vh;
+  border-left: 5px solid white;
 }
