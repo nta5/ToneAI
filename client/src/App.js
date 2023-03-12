@@ -10,7 +10,7 @@ function App() {
   function getData() {
     axios({
       method: "GET",
-      url: "http://127.0.0.1:8000/",
+      url: "https://fraudapi.onrender.com/",
     })
       .then((response) => {
         const res = response.data;
